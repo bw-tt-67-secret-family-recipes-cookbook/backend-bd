@@ -49,19 +49,19 @@ router.get('/recipes/:user_id', (req, res) => {
         })
 })
 
-router.get("/recipes", (req, res) => {
-  console.log(req)
-  Users.getRecipes(req.body.id)
+router.get("/:id/recipes", (req, res) => {
+  console.log(req.params)
+  Users.getRecipes(req.params.id)
     .then((data) => {
-      res.status(200).json(req.params);
+      res.status(200).json(data);
     })
     .catch((err) => {
       res.status(400).json(err.message);
     });
 });
 
-router.put('/recipes/:recipe_id', (req, res) => {
-    const recipeId = req.params
+router.put('/:id/recipes/:recipe_id', (req, res) => {
+    const {id, recipeId}= req.params
     const recipeBody = req.body
 
     Users.updateRecipe(recipeId, recipeBody)
@@ -83,9 +83,10 @@ router.delete('/recipes/:recipe_id', (req, res) => {
         })
 })
 
-router.post('/recipes', (req, res) => {
-    console.log(req.body)
-    Users.makeRecipe(req.body)
+router.post('/:id/recipes', (req, res) => {
+    const id = req.params.id
+    console.log({...req.body, user_id: id})
+    Users.makeRecipe({...req.body, user_id: id})
         .then(recipe => {
             res.status(201).json(req.body)
         })
