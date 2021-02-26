@@ -3,6 +3,7 @@ const Users = require('./users-model')
 const bcryptjs = require("bcryptjs");
 const makeToken = require("../middleware/makeToken");
 const loginValidation = require("../middleware/loginValidation");
+const restricted = require('../middleware/restricted')
 
 const router = express.Router()
 
@@ -48,21 +49,21 @@ router.get('/recipes/:user_id', (req, res) => {
         })
 })
 
-router.get('/recipes', (req, res) => { 
-    Users.findBy(req.body.id)
-        .then(recipe => {
-            res.json(recipe)
-        })
-        .catch(err => {
-            res.status(400).json(err.message)
-        })
-})
+router.get("/recipes", restricted, (req, res) => {
+  Users.getRecipes(req.decodedToken.id)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err.message);
+    });
+});
 
 router.put('/recipes/:recipe_id', (req, res) => {
     const recipeId = req.params
-    const recipe = req.body
+    const recipeBody = req.body
 
-    Users.updateRecipe(recipeId, recipe)
+    Users.updateRecipe(recipeId, recipeBody)
         .then(recipe => {
             res.status(200).json(recipe)
         })

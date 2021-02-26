@@ -16,7 +16,7 @@ async function create(data) {
 }
 
 function getRecipes(id) {
-    return db("recipes").where("user_id", id);
+    return db("recipes").where('user_id', id)
 }
 
 function getByUsername(name) {
@@ -25,7 +25,7 @@ function getByUsername(name) {
 
 async function updateRecipe(id, recipe) {
     await db('recipes').where('recipe_id', id).update(recipe)
-    return {data: recipe, message: `Recipe updated!`}
+    return db('recipes').where('recipe_id', id).first()
 }
 
 function removeRecipe(id) {
