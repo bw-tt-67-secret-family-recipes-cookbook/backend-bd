@@ -16,7 +16,7 @@ async function create(data) {
 }
 
 function getRecipes(id) {
-    return db("recipes").where('user_id', id)
+    return db("recipes").where('recipe_id', id)
 }
 
 function getByUsername(name) {

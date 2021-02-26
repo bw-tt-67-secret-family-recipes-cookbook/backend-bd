@@ -49,10 +49,11 @@ router.get('/recipes/:user_id', (req, res) => {
         })
 })
 
-router.get("/recipes", restricted, (req, res) => {
-  Users.getRecipes(req.decodedToken.id)
+router.get("/recipes", (req, res) => {
+  console.log(req)
+  Users.getRecipes(req.body.id)
     .then((data) => {
-      res.status(200).json(data);
+      res.status(200).json(req.params);
     })
     .catch((err) => {
       res.status(400).json(err.message);
@@ -83,9 +84,10 @@ router.delete('/recipes/:recipe_id', (req, res) => {
 })
 
 router.post('/recipes', (req, res) => {
+    console.log(req.body)
     Users.makeRecipe(req.body)
         .then(recipe => {
-            res.status(201).json(recipe)
+            res.status(201).json(req.body)
         })
         .catch(err => {
             res.status(400).json(err.message)
