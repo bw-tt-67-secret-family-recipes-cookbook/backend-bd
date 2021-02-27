@@ -1,6 +1,21 @@
 // Update with your config settings.
 const parse = require('pg-connection-string').parse;
+const pg = require('pg')
+
 const config = parse(process.env.DATABASE_URL);
+
+if (process.env.DATABASE_URL) {
+    pg.defaults.ssl = { rejectUnauthorized: false }
+}
+
+const sharedConfig = {
+    client: 'pg',
+    migrations: { directory: './api/data/migrations' },
+    seeds: {
+        directory: './api/data/seeds'
+    }
+}
+
 module.exports = {
     development: {
         client: "sqlite3",
@@ -37,14 +52,11 @@ module.exports = {
     },
 
     production: {
-        client: "postgresql",
-        connection: {url: process.env.DATABASE_URL},
+        ...sharedConfig,
+        connection: process.env.DATABASE_URL,
         pool: {
             min: 2,
             max: 10,
-        },
-        migrations: {
-            tableName: "knex_migrations",
-        },
+        }
     },
 };
