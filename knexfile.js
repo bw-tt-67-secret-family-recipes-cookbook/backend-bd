@@ -1,20 +1,20 @@
 // Update with your config settings.
-const parse = require('pg-connection-string').parse;
-const pg = require('pg')
+// const parse = require('pg-connection-string').parse;
+// const pg = require('pg')
 
-const config = parse(process.env.DATABASE_URL);
+// const config = parse(process.env.DATABASE_URL);
 
-if (process.env.DATABASE_URL) {
-    pg.defaults.ssl = { rejectUnauthorized: false }
-}
+// if (process.env.DATABASE_URL) {
+//     pg.defaults.ssl = { rejectUnauthorized: false }
+// }
 
-const sharedConfig = {
-    client: 'pg',
-    migrations: { directory: './api/data/migrations' },
-    seeds: {
-        directory: './api/data/seeds'
-    }
-}
+// const sharedConfig = {
+//     client: 'pg',
+//     migrations: { directory: './api/data/migrations' },
+//     seeds: {
+//         directory: './api/data/seeds'
+//     }
+// }
 
 module.exports = {
     development: {
@@ -51,12 +51,12 @@ module.exports = {
         },
     },
 
-    production: {
-        ...sharedConfig,
-        connection: process.env.DATABASE_URL,
-        pool: {
-            min: 2,
-            max: 10,
-        }
-    },
+    // production: {
+    //     ...sharedConfig,
+    //     connection: process.env.DATABASE_URL,
+    //     pool: {
+    //         min: 2,
+    //         max: 10,
+    //     }
+    // },
 };

@@ -23,25 +23,6 @@ exports.up = function(knex) {
                 .onDelete('RESTRICT')
                 .onUpdate('CASCADE')
         })
-
-        .createTable('recipe_pairs', table => {
-            table.increments('recipe_pair_id')
-            table
-                .integer('user_id')
-                .unsigned()
-                .references('user_id')
-                .inTable('users')
-                .onDelete('RESTRICT')
-                .onUpdate('CASCADE')
-            table
-                .integer('recipe_id')
-                .unsigned()
-                .references('recipe_id')
-                .inTable('recipes')
-                .onDelete('RESTRICT')
-                .onUpdate('CASCADE')
-        })
-    
 };
 
 exports.down = function(knex) {

@@ -16,7 +16,7 @@ async function create(data) {
 }
 
 function getRecipes(id) {
-    return db("recipes").select('user_id', 'title', 'source', 'ingredients', 'instructions', 'category').where('user_id', id)
+    return db("recipes").select('user_id', 'title', 'source', 'ingredients', 'instructions', 'category', 'recipe_id').where('user_id', id)
 }
 
 function getByUsername(name) {
@@ -29,7 +29,7 @@ async function updateRecipe(id, recipe) {
 }
 
 function removeRecipe(id) {
-    return db('recipes').where('recipe_id', id).del()
+    return db('recipes').where('recipe_id', id).delete()
 }
 
 function findBy(filter) {

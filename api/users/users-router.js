@@ -61,14 +61,13 @@ router.get("/:id/recipes", (req, res) => {
     });
 });
 
-router.put('/:id/recipes/:recipeId', (req, res) => {
-    const {id, recipeId}= req.params
+router.put('/:id/recipes/:recipe_id', (req, res) => {
     const recipeBody = req.body
 
     console.log('body', recipeBody)
-    Users.updateRecipe(recipeId, recipeBody)
+    Users.updateRecipe(req.params.recipe_id, recipeBody)
         .then(recipe => {
-            res.status(200).json(recipe)
+            res.status(200).json(recipeBody)
         })
         .catch(err => {
             res.status(400).json({message: '5', error: err.message})
