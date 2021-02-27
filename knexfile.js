@@ -51,23 +51,19 @@ module.exports = {
         },
     },
 
-<<<<<<< HEAD
-    // production: {
-    //     ...sharedConfig,
-    //     connection: process.env.DATABASE_URL,
-    //     pool: {
-    //         min: 2,
-    //         max: 10,
-    //     }
-    // },
-=======
+
     production: {
-       
-        connection: config,
+        client: 'pg',
+        connection: process.env.DATABASE_URL,
+        migrations: {
+            directory: './data/migrations'
+        },
+        seeds: {
+            directory: './data/seeds'
+        },
         pool: {
             min: 2,
             max: 10,
         }
-    },
->>>>>>> 94821850362db1ac6406a4440fde9a76a2b97064
+    }
 };
