@@ -1,6 +1,7 @@
 // Update with your config settings.
 // const parse = require('pg-connection-string').parse;
 // const pg = require('pg')
+require('dotenv').config()
 
 // const config = parse(process.env.DATABASE_URL);
 
