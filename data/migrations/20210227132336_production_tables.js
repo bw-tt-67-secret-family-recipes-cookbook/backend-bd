@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
     return knex.schema
-        .createTable('users', table => {
+        .createTable('site_users', table => {
             table.increments('user_id')
             table.string('username').unique().notNullable()
             table.string('password').notNullable()
@@ -18,7 +18,7 @@ exports.up = function(knex) {
                 .integer('user_id')
                 .unsigned()
                 .references('user_id')
-                .inTable('users')
+                .inTable('site_users')
                 .notNullable()
                 .onDelete('RESTRICT')
                 .onUpdate('CASCADE')
@@ -29,4 +29,5 @@ exports.down = function(knex) {
     return knex.schema
         .dropTableIfExists('recipe_pairs')
         .dropTableIfExists('recipes')
+        .dropTableIfExists('site_users')
 };

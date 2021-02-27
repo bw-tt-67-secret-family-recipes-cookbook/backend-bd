@@ -11,7 +11,7 @@ module.exports = {
   };
 
 async function create(data) {
-    const a = await db("users").insert(data);
+    const a = await db("site_users").insert(data);
     return { data: a, Message: `User ${a.username} created!` };
 }
 
@@ -20,7 +20,7 @@ function getRecipes(id) {
 }
 
 function getByUsername(name) {
-    return db("users").where("username", name);
+    return db("site_users").where("username", name);
 }
 
 async function updateRecipe(id, recipe) {
