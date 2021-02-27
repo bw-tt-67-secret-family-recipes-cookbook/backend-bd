@@ -27,6 +27,8 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.18",
     "node": "^15.8.0",
+    "pg": "^8.5.1",
+    "pg-connection-string": "^2.4.0",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {

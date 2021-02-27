@@ -1,5 +1,6 @@
 // Update with your config settings.
-
+const parse = require('pg-connection-string').parse;
+const config = parse(process.env.DATABASE_URL);
 module.exports = {
     development: {
         client: "sqlite3",
@@ -37,7 +38,7 @@ module.exports = {
 
     production: {
         client: "postgresql",
-        connection: {
+        connection: process.env.DATABASE_URL || {
             database: "my_db",
             user: "username",
             password: "password",
