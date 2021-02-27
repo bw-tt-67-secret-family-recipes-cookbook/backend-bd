@@ -28,6 +28,7 @@ router.post("/login", loginValidation, (req, res) => {
         const token = makeToken(user[0]);
         res.status(200).json({
           message: "Welcome to our API, " + user[0].username,
+          data: user,
           token,
         });
       } else {
@@ -60,10 +61,11 @@ router.get("/:id/recipes", (req, res) => {
     });
 });
 
-router.put('/:id/recipes/:recipe_id', (req, res) => {
+router.put('/:id/recipes/:recipeId', (req, res) => {
     const {id, recipeId}= req.params
     const recipeBody = req.body
 
+    console.log('body', recipeBody)
     Users.updateRecipe(recipeId, recipeBody)
         .then(recipe => {
             res.status(200).json(recipe)
@@ -73,8 +75,8 @@ router.put('/:id/recipes/:recipe_id', (req, res) => {
         })
 })
 
-router.delete('/recipes/:recipe_id', (req, res) => {
-    Users.removeRecipe(req.params)
+router.delete('/:id/recipes/:recipe_id', (req, res) => {
+    Users.removeRecipe(req.params.recipe_id)
         .then(() => {
             res.json({message: 'DELETED 4EVEAR'})
         })
@@ -84,11 +86,10 @@ router.delete('/recipes/:recipe_id', (req, res) => {
 })
 
 router.post('/:id/recipes', (req, res) => {
-    const id = req.params.id
-    console.log({...req.body, user_id: id})
-    Users.makeRecipe({...req.body, user_id: id})
-        .then(recipe => {
-            res.status(201).json(req.body)
+    const recipe = req.body
+    Users.makeRecipe(recipe)
+        .then(() => {
+            res.status(201).json(recipe)
         })
         .catch(err => {
             res.status(400).json(err.message)
